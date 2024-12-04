@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temple Donation Project</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <h1>Temple Donation Project</h1>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#donate">Donate</a></li>
+                    <li><a href="#transparency">Transparency</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="login.php">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Help Us Build a Spiritual Haven</h2>
+            <p>Your contributions will make a difference in creating a place of worship and peace.</p>
+            <button onclick="scrollToSection('donate')">Donate Now</button>
+            <button onclick="scrollToSection('about')">Learn More</button>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About the Project</h2>
+            <p>We aim to construct a temple that will serve as a spiritual center for the community, fostering harmony and growth. Join us in this noble journey.</p>
+        </div>
+    </section>
+
+    <!-- Donation Section -->
+    <section id="donate" class="donate">
+        <div class="container">
+            <h2>Donate to the Cause</h2>
+            <p>Scan the QR code below or choose your preferred payment method to contribute.</p>
+            <img src="qr-code-placeholder.png" alt="QR Code" class="qr-code">
+        </div>
+    </section>
+
+    <!-- Transparency Section -->
+    <section id="transparency" class="transparency">
+        <div class="container">
+            <h2>Transparency & Accountability</h2>
+            <p>We maintain complete transparency with our donors. View our ledger to see how your contributions are utilized.</p>
+            <button onclick="viewLedger()">View Expense Ledger</button>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <form id="contactForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Temple Donation Project. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
