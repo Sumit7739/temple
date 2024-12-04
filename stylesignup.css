@@ -1,0 +1,255 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.error-msg {
+    position: relative;
+    color: red;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+header img {
+    width: 250px;
+}
+
+.toggle-buttons {
+    position: absolute;
+    top: 5%;
+    right: 0;
+    margin-right: 30px;
+    width: 50px;
+    height: 40px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+    font-size: 30px;
+    border-radius: 10px;
+    z-index: 9999;
+}
+
+.toggle-buttons i {
+    color: #fff;
+    /* Adjust the color of the icon */
+}
+
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #333;
+    background-size: cover;
+    background-position: center;
+    animation: animateBg 5s linear infinite;
+}
+
+/* @keyframes animateBg {
+    100% {
+        filter: hue-rotate(360deg);
+    }
+} */
+
+.login-box {
+    width: 90%;
+    max-width: 400px;
+    height: auto;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .5);
+    border-radius: 20px;
+    padding: 30px;
+    backdrop-filter: blur(15px);
+}
+
+h2 {
+    font-size: 2em;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.input-box {
+    position: relative;
+    margin: 20px 0;
+}
+
+.input-box label {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    font-size: 1em;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.input-box input:focus~label,
+.input-box input:valid~label {
+    top: 0;
+}
+
+.input-box input {
+    width: 100%;
+    height: 40px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: #fff;
+    padding-left: 10px;
+    border-bottom: 2px solid #fff;
+}
+
+.checkbox {
+    color: #fff;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.forpass a {
+    text-decoration: none;
+    color: #fff;
+    margin-left: auto;
+    display: block;
+    text-align: right;
+}
+
+button {
+    width: 100%;
+    height: 40px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 1em;
+    color: #000;
+    font-weight: 500;
+    margin-top: 20px;
+}
+
+.log {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.log h4 {
+    color: white;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.log a {
+    color: #fff;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+@media(max-width: 480px) {
+    .input-box label {
+        left: 5px;
+    }
+
+    button {
+        font-size: 0.9em;
+    }
+
+    .forpass a {
+        margin-top: 10px;
+        text-align: center;
+    }
+}
+
+.checkbox {
+    color: #fff;
+}
+
+.log h4 {
+    color: white;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.log a {
+    /* text-decoration: none; */
+    color: #fff;
+    font-size: 18px;
+    margin-left: 80px;
+}
+
+#loaderOverlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 9999;
+}
+
+.loader {
+    /* Loader styles */
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+}
+
+.loading {
+    display: inline-block !important;
+    /* Override display property */
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 360px) {
+    .login-box {
+        width: 100vh;
+        height: 100vh;
+        border: none;
+        border-radius: 0;
+    }
+
+    .input-box {
+        width: 290px;
+    }
+}
+
+.nav .h2 {
+    font-size: 2em;
+    color: #fff;
+    text-align: left;
+}
+
+.error-msg {
+    position: relative;
+    color: red;
+    font-size: 20px;
+    margin-top: 5px;
+    margin-left: 68px;
+}

@@ -1,0 +1,83 @@
+   
+   body,
+   h1,
+   h2,
+   p,
+   label,
+   input,
+   button {
+       margin: 0;
+       padding: 0;
+   }
+
+   
+   body {
+       font-family: Arial, sans-serif;
+       background-color: #f0f0f0;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       min-height: 100vh;
+       margin: 0;
+   }
+
+   .container {
+       position: absolute;
+       top: 10%;
+       width: 80%;
+       height: 40%;
+       text-align: center;
+       background-color: #fff;
+       border-radius: 5px;
+       padding: 20px;
+       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+   }
+
+   h1 {
+       font-size: 30px;
+       color: #303030;
+       margin-bottom: 50px;
+   }
+
+   h2 {
+       font-size: 20px;
+       color: #333;
+       margin-bottom: 20px;
+   }
+
+   label {
+       display: block;
+       font-size: 16px;
+       margin-bottom: 5px;
+   }
+
+   input[type="email"] {
+       width: 80%;
+       padding: 10px;
+       border: 1px solid #ccc;
+       border-radius: 4px;
+       font-size: 16px;
+       margin-bottom: 15px;
+   }
+
+   button[type="submit"] {
+       background-color: #4285f4;
+       color: white;
+       border: none;
+       padding: 10px 20px;
+       border-radius: 4px;
+       cursor: pointer;
+       font-size: 16px;
+       transition: background-color 0.2s ease-in-out;
+   }
+
+   button[type="submit"]:hover {
+       background-color: #357ae8;
+   }
+
+   
+   @media screen and (max-width: 768px) {
+       .container {
+           width: 80%;
+       }
+   }

@@ -1,0 +1,157 @@
+  /* General Styling */
+  body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9f9fb;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #333;
+  }
+
+  .containerr {
+      display: flex;
+      flex-wrap: wrap;
+      /* border: 1px solid; */
+  }
+
+  /* Container Styling */
+  .container {
+      /* From https://css.glass */
+      background: rgba(45, 45, 45, 0.82);
+      border-radius: 16px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(7.4px);
+      -webkit-backdrop-filter: blur(7.4px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 30px 40px;
+      border-radius: 10px;
+      /* border: 1px solid; */
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 48%;
+      height: 100%;
+      margin: 5px;
+  }
+
+  .container2 {
+      /* position: absolute; */
+      left: 50%;
+  }
+
+
+  /* Title Styling */
+  h2 {
+      font-size: 24px;
+      color: #ffffff;
+      text-align: center;
+      margin-bottom: 20px;
+      font-weight: 600;
+  }
+
+  /* Form Group Styling */
+  .form-group {
+      margin-bottom: 20px;
+      position: relative;
+  }
+
+  /* Labels */
+  label {
+      font-size: 18px;
+      color: #ddd;
+      font-weight: 500;
+      display: block;
+      margin-bottom: 5px;
+  }
+
+  /* Input Fields */
+  input,
+  select,
+  textarea {
+      width: 100%;
+      padding: 15px 18px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      background-color: #f9f9fb;
+      outline: none;
+      transition: all 0.3s ease;
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+      border-color: #007bff;
+      background-color: #fff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+  }
+
+  /* Textarea */
+  textarea {
+      resize: none;
+      height: 100px;
+  }
+
+  /* Submit Button */
+  button {
+      width: 100%;
+      padding: 18px 25px;
+      background-color: #ffffff;
+      color: #000000;
+      font-size: 16px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      font-weight: 600;
+  }
+
+  button:hover {
+      background-color: #ddd;
+      box-shadow: 0 5px 15px rgba(0, 91, 179, 0.2);
+  }
+
+  /* Floating Placeholder Effect */
+  input:not(:placeholder-shown)+label,
+  textarea:not(:placeholder-shown)+label {
+      transform: translateY(-20px);
+      font-size: 12px;
+      color: #007bff;
+  }
+
+  input:placeholder-shown+label,
+  textarea:placeholder-shown+label {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      transform: translateY(-50%);
+      font-size: 14px;
+      color: #aaa;
+      pointer-events: none;
+      transition: all 0.3s ease;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+      .containerr {
+          flex-direction: column;
+      }
+
+      .container {
+          max-width: 100%;
+      }
+
+      .container {
+          padding: 20px 25px;
+      }
+
+      .container2 {
+          position: relative;
+      }
+
+      button {
+          font-size: 14px;
+      }
+  }
