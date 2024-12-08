@@ -13,7 +13,7 @@ if (!$conn) {
 }
 
 // Query to fetch all donation records
-$query = "SELECT * FROM donations ORDER BY TransactionID DESC";
+$query = "SELECT * FROM donations ORDER BY id DESC";
 $result = mysqli_query($conn, $query);
 
 if ($result) {

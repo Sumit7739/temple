@@ -20,9 +20,9 @@
     if (isset($_GET['email'])) {
         $email = $_GET['email'];
     ?>
-        <h1>Verify Your Account <br> to reset password</h1>
-        <h2>An OTP is sent <br> to your entered Email Address</h2>
+            <h1>Verify Your Account <br> to reset password</h1>
         <div class="container">
+            <h2>An OTP is sent <br> to your entered Email Address</h2>
             <form action="process_otp_2.php" method="POST">
                 <input type="hidden" name="email" value="<?php echo $email; ?>">
                 <input type="text" id="otp" name="otp" placeholder="Enter OTP" required maxlength="6">
@@ -33,7 +33,7 @@
                 </h4>
             </form>
         </div>
-        
+
     <?php
     } else {
         echo 'Invalid request.';

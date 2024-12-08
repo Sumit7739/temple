@@ -46,6 +46,9 @@ $conn->close();
     <link rel="stylesheet" href="style_main.css">
     <link rel="stylesheet" href="adddonate.css">
     <style>
+        .containerr{
+            overflow: auto;
+        }
         .donation-container {
             justify-content: center;
             gap: 20px;
@@ -86,6 +89,12 @@ $conn->close();
             margin-top: 10px;
             border-top: 1px solid #eee;
             padding-top: 10px;
+        }
+
+        .imp {
+            color: red;
+            /* font-weight: bold; */
+            font-size: 24px;
         }
     </style>
 </head>
@@ -180,23 +189,28 @@ $conn->close();
             <h2>Record Donation</h2>
             <form id="donationForm">
                 <div class="form-group">
-                    <label for="donorName">Donor Name</label>
+                    <label for="donorName">Donor Name<span class="imp"> **</span></label>
                     <input type="text" id="donorName" name="donorName" placeholder=" " required>
                 </div>
                 <div class="form-group">
-                    <label for="mobileNumber">Mobile Number</label>
+                    <label for="mobileNumber">Mobile Number<span class="imp"> **</span></label>
                     <input type="tel" id="mobileNumber" name="mobileNumber" placeholder=" " required>
                 </div>
                 <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" name="address" placeholder=" " required>
+                </div>
+
+                <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder=" " required>
+                    <input type="email" id="email" name="email" placeholder=" ">
                 </div>
                 <div class="form-group">
-                    <label for="donationAmount">Donation Amount (₹):</label>
+                    <label for="donationAmount">Donation Amount (₹):<span class="imp"> **</span></label>
                     <input type="number" id="donationAmount" name="donationAmount" placeholder=" " required>
                 </div>
                 <div class="form-group">
-                    <label for="paymentMethod">Payment Method</label>
+                    <label for="paymentMethod">Payment Method<span class="imp"> **</span></label>
                     <select id="paymentMethod" name="paymentMethod" required>
                         <option value="" disabled selected>Select Payment Method</option>
                         <option value="Online">Online</option>
@@ -206,11 +220,11 @@ $conn->close();
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="transactionReference">Transaction Reference</label>
-                    <input type="text" id="transactionReference" name="transactionReference" placeholder=" " required>
+                    <label for="transactionReference">Transaction Reference ID</label>
+                    <input type="text" id="transactionReference" name="transactionReference" placeholder=" ">
                 </div>
                 <div class="form-group">
-                    <label for="donationDate">Date of Donation</label>
+                    <label for="donationDate">Date of Donation<span class="imp"> **</span></label>
                     <input type="date" id="donationDate" name="donationDate" required>
                 </div>
                 <div class="form-group">
@@ -224,8 +238,8 @@ $conn->close();
 
         <div class="container container2 donation-container" id="donationContainer">
             <br>
-        <h2>View Latest Donations Added</h2>
-        <br>
+            <h2>View Latest Donations Added</h2>
+            <br>
 
         </div>
     </div>
@@ -248,27 +262,41 @@ $conn->close();
                 const formData = {
                     donorName: $('#donorName').val().trim(),
                     mobileNumber: $('#mobileNumber').val().trim(),
-                    email: $('#email').val().trim(),
                     donationAmount: $('#donationAmount').val().trim(),
                     paymentMethod: $('#paymentMethod').val(),
+                    donationDate: $('#donationDate').val().trim(),
+                    email: $('#email').val().trim(),
+                    address: $('#address').val().trim(),
                     transactionReference: $('#transactionReference').val().trim(),
-                    donationDate: $('#donationDate').val(),
                     remarks: $('#remarks').val().trim(),
                 };
 
                 // Frontend validation: Check required fields
                 if (!formData.donorName || !formData.mobileNumber || !formData.donationAmount || !formData.paymentMethod || !formData.donationDate) {
-                    $('#responseMessage').text('Please fill in all required fields.').css('color', 'red');
+                    $('#responseMessage').text('Please fill in all required fields (Name, Mobile, Amount, Payment Method, and Date).').css('color', 'red');
                     return;
                 }
 
-                // AJAX call to PHP backend
+                // Check for valid mobile number format (optional validation)
+                const mobileRegex = /^[0-9]{10}$/;
+                if (formData.mobileNumber && !mobileRegex.test(formData.mobileNumber)) {
+                    $('#responseMessage').text('Please enter a valid 10-digit mobile number.').css('color', 'red');
+                    return;
+                }
+
+                // Check for valid donation amount (optional validation)
+                if (formData.donationAmount && isNaN(formData.donationAmount)) {
+                    $('#responseMessage').text('Please enter a valid donation amount.').css('color', 'red');
+                    return;
+                }
+
                 $.ajax({
                     url: 'save_donation.php',
                     type: 'POST',
                     data: formData,
                     dataType: 'json',
                     success: function(response) {
+                        console.log(response); // Log the response for debugging
                         if (response.success) {
                             $('#responseMessage').text(response.message).css('color', 'green');
                             $('#donationForm')[0].reset();
@@ -279,28 +307,31 @@ $conn->close();
                             location.reload();
                         }, 3000);
                     },
-                    error: function() {
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error); // Log the error details
                         $('#responseMessage').text('An error occurred while saving the donation.').css('color', 'red');
                     },
                 });
             });
         });
+
         $(document).ready(function() {
             $.ajax({
-                url: 'fetch_donations.php', // Replace with your PHP script URL
+                url: 'fetch_donations.php',
                 type: 'GET',
                 dataType: 'json',
                 success: function(response) {
                     if (response.success) {
                         const donations = response.data;
                         const container = $('#donationContainer');
-                        
+
                         donations.forEach(donation => {
                             const card = `
                         <div class="donation-card">
                             <div class="card-header">${donation.donor_name}</div>
                             <div class="card-detail"><span>Mobile:</span> ${donation.mobile_number}</div>
                             <div class="card-detail"><span>Email:</span> ${donation.email || 'N/A'}</div>
+                            <div class="card-detail"><span>Address:</span> ${donation.address || 'N/A'}</div>
                             <div class="card-detail"><span>Amount:</span> ₹${donation.donation_amount}</div>
                             <div class="card-detail"><span>Payment Method:</span> ${donation.payment_method}</div>
                             <div class="card-detail"><span>Transaction Reference:</span> ${donation.transaction_reference || 'N/A'}</div>
@@ -309,7 +340,7 @@ $conn->close();
                             <div class="card-detail"><span>Purpose:</span> ${donation.purpose}</div>
                             <div class="card-detail"><span>Anonymous:</span> ${donation.isanonymous ? 'Yes' : 'No'}</div>
                             <div class="card-detail"><span>Remarks:</span> ${donation.remarks || 'None'}</div>
-                            <div class="card-detail"><span>Acknowledgment Sent:</span> ${donation.acknowledgment_sent ? 'Yes' : 'No'}</div>
+                            <div class="card-detail"><span>Acknowledgment Sent:</span> ${donation.acknowledgment_sent == 1 ? 'Yes' : 'No'}</div>
                             <div class="card-detail"><span>Campaign:</span> ${donation.campaign_id || 'None'}</div>
                         </div>
                     `;

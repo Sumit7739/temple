@@ -70,6 +70,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="login.css">
+    <style>
+        button{
+            margin-bottom: 20px;
+        }
+        .link{
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .link:hover{
+            text-decoration: underline;
+        }
+    </style>
     <title>Login</title>
 </head>
 
@@ -102,6 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <br>
             <br>
             <button type="submit" name="submit">Login</button>
+            <a href="index.html" class="link">go back to home page</a>
         </form>
     </div>
 </body>

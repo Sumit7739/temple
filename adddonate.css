@@ -30,15 +30,35 @@
       border-radius: 10px;
       /* border: 1px solid; */
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 48%;
-      height: 100%;
+      /* width: 100%; */
+      /* max-width: 48%; */
+      height: auto;
+      /* min-height: 100vh; */
       margin: 5px;
   }
 
   .container2 {
       /* position: absolute; */
       left: 50%;
+      min-height: 100vh;
+  }
+
+  /* css to style scroll bar */
+  ::-webkit-scrollbar {
+      width: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+  }
+
+  ::-webkit-scrollbar-thumb {
+      background: #f8aa34;
+      border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+      background: #ccc;
   }
 
 
