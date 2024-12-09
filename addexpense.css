@@ -102,15 +102,16 @@
      justify-content: space-around;
      align-items: flex-start;
      flex-wrap: wrap;
-     margin: 20px auto;
-     max-width: 1200px;
-     gap: 20px;
+     /* margin: 20px auto; */
+     /* max-width: 1200px; */
+     /* gap: 20px; */
      /* border: 1px solid; */
  }
 
  /* Common container styling for all sections */
  .donation-container,
  .expenses-container,
+ .total-container,
  .remaining-container {
      background: #ffffff;
      border-radius: 10px;
@@ -122,6 +123,7 @@
 
  .donation-container:hover,
  .expenses-container:hover,
+ .total-container:hover,
  .remaining-container:hover {
      transform: translateY(-5px);
      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
@@ -130,6 +132,7 @@
  /* Section titles */
  .donation-container h2,
  .expenses-container h2,
+ .total-container h2,
  .remaining-container h2 {
      font-size: 24px;
      margin-bottom: 10px;
@@ -141,6 +144,7 @@
  /* Amount styling */
  #donation-amount,
  #expenses-amount,
+ #total-donations-count,
  #remaining-amount {
      font-size: 28px;
      font-weight: bold;
@@ -161,6 +165,10 @@
  #remaining-amount {
      color: #1e88e5;
      /* Blue for remaining amount */
+ }
+
+ #total-donations-count{
+     color: #ff5100;
  }
 
  .expenses-list-container {

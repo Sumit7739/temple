@@ -40,13 +40,84 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"> -->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="style_main.css">
+    <!-- <link rel="stylesheet" href="addexpense.css"> -->
     <style>
+        .containerr {
+            height: 95vh;
+        }
+
+        .wrapper {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .donation-container,
+        .expenses-container,
+        .total-container,
+        .remaining-container {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .donation-container:hover,
+        .expenses-container:hover,
+        .total-container:hover,
+        .remaining-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .donation-container h2,
+        .expenses-container h2,
+        .total-container h2,
+        .remaining-container h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333333;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* Amount styling */
+        #donation-amount,
+        #expenses-amount,
+        #total-donations-count,
+        #remaining-amount {
+            font-size: 28px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        #donation-amount {
+            color: #4caf50;
+            /* Green for donations */
+        }
+
+        #expenses-amount {
+            color: #e53935;
+            /* Red for expenses */
+        }
+
+        #remaining-amount {
+            color: #1e88e5;
+            /* Blue for remaining amount */
+        }
+
+        #total-donations-count {
+            color: #ff5100;
+        }
+
+
+
         #menu button {
-            /* margin-left: 50px; */
             margin: 10px;
             padding: 8px 10px;
             background-color: #fff;
@@ -56,30 +127,42 @@ $conn->close();
             cursor: pointer;
         }
 
+        #expensesChart {
+            position: absolute;
+            top: 21%;
+            max-width: 47%;
+            max-height: 700px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
         .chart {
             position: absolute;
-            top: 38%;
+            top: 21%;
             right: 30px;
-            width: auto;
-            /* max-height: 1600px; */
+            width: 48%;
+            height: 700px;
             background-color: #fff;
             padding: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
         }
     </style>
 </head>
 
 <body>
-    <!-- Sidebar structure -->
     <div class="sidebar">
         <div class="wrapper">
             <ul>
-                <!-- Home Link -->
                 <li>
                     <span class="icon material-icons active">home</span>
                     <span class="text active">Home</span>
                 </li>
 
-                <!-- Inventory Section with Submenu -->
+
                 <li class="has-submenu">
                     <span class="icon material-icons">volunteer_activism</span>
                     <span class="text">Donations</span>
@@ -89,7 +172,7 @@ $conn->close();
                     </div>
                 </li>
 
-                <!-- Sales Section with Submenu -->
+
                 <li class="has-submenu">
                     <span class="icon material-icons">payments</span>
                     <span class="text">Expense</span>
@@ -100,7 +183,6 @@ $conn->close();
                     </div>
                 </li>
 
-                <!-- Stock Section (Placeholder for future use) -->
                 <li class="has-submenu">
                     <span class="icon material-icons">campaign</span>
                     <span class="text">Campaign</span>
@@ -111,7 +193,7 @@ $conn->close();
                     </div>
                 </li>
 
-                <!-- Reports Link -->
+
                 <li class="has-submenu">
                     <span class="icon material-icons">bar_chart</span>
                     <span class="text">Reports</span>
@@ -121,7 +203,7 @@ $conn->close();
                     </div>
                 </li>
 
-                <!-- Tables Link -->
+
                 <li class="has-submenu">
                     <span class="icon material-icons">table_chart</span>
                     <span class="text">Tables</span>
@@ -131,7 +213,6 @@ $conn->close();
                     </div>
                 </li>
 
-                <!-- Settings Section with Submenu -->
                 <li class="has-submenu">
                     <span class="icon material-icons">settings</span>
                     <span class="text">Settings</span>
@@ -141,7 +222,7 @@ $conn->close();
                     </div>
                 </li>
 
-                <!-- Help Link -->
+
                 <li class="has-submenu">
                     <span class="icon material-icons">info</span>
                     <span class="text">Extra</span>
@@ -154,30 +235,35 @@ $conn->close();
         </div>
     </div>
     <div class="containerr">
-        <div class="content">
-            <h3>Welcome <?php echo $name; ?></h3>
-            <!-- <h4>Role - <?php echo $role; ?> </h4> -->
-        </div>
-
-        <div class="dashboard">
-
-        </div>
-
-        <h2>Quick Links Section</h2>
-        <br>
-        <div class="quick-links">
-            <div class="link-item">
-                <!-- <h4>Inventory</h4> -->
-                <!-- <a href="add_inventory.php">Add Inventory</a>
-                <a href="view_inventory.php">View Inventory</a> -->
+        <div class="wrapper">
+            <div class="donation-section">
+                <div class="total-container">
+                    <h2>No of Donations</h2>
+                    <p id="total-donations-count">Loading...</p>
+                </div>
             </div>
-            <div class="link-item">
-                <!-- <h4>Sales</h4> -->
-                <!-- <a href="sales.php">Add Sales</a>
-                <a href="view_sales.php">View Sales</a> -->
+            <div id="donation-section">
+                <div class="donation-container">
+                    <h2>Total Donations</h2>
+                    <p id="donation-amount">Loading...</p>
+                </div>
+            </div>
+            <div id="expenses-section">
+                <div class="expenses-container">
+                    <h2>Total Expenses</h2>
+                    <p id="expenses-amount">Loading...</p>
+                </div>
+            </div>
+            <div id="remaining-section">
+                <div class="remaining-container">
+                    <h2>Remaining Amount</h2>
+                    <p id="remaining-amount">Loading...</p>
+                </div>
             </div>
         </div>
         <div class="chart">
+            <h2 style="text-align: center;">Donation Charts</h2>
+            <br>
             <div id="menu">
                 <button onclick="showChart('trendChartContainer')">Show Trends</button>
                 <button onclick="showChart('topDonorsChartContainer')">Show Top Donors</button>
@@ -185,7 +271,7 @@ $conn->close();
                 <button onclick="showChart('paymentMethodChartContainer')">Show Payment Methods</button>
                 <button onclick="showChart('averageChartContainer')">Show Average Donations</button>
             </div>
-
+            <br>
             <div id="trendChartContainer" class="chart-container" style="display: block;">
                 <canvas id="trendChart"></canvas>
                 <div id="trendSummary" class="summary"></div>
@@ -211,18 +297,76 @@ $conn->close();
                 <div id="averageSummary" class="summary"></div>
             </div>
         </div>
+        <div class="chart2">
+            <canvas id="expensesChart"></canvas>
+        </div>
+
+        <footer>
+            <p>Created by <a href="submitupdates.html">Sumit</a> </p>
+            <p class="footer-text">© 2024 . All rights reserved.</p>
+        </footer>
     </div>
-
-    <!-- <footer>
-    <p>Created by <a href="submitupdates.html">Sumit</a> </p>
-    <p class="footer-text">© 2024 . All rights reserved.</p>
-</footer> -->
-
-
-    <!-- <script src="dnrep.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="dashboard.js"></script>
+    <script src="exrep.js"></script>
+    <script src="dnrep.js"></script>
     <script>
+        $(document).ready(function() {
+            let donations = 0;
+            let expenses = 0;
+            let totalDonationsCount = 0;
+
+            // Fetch Donations
+            $.ajax({
+                url: 'fetch_donation.php', // Backend script for donations
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        donations = parseFloat(response.total_donations || 0);
+                        totalDonationsCount = parseInt(response.total_count || 0);
+                        $('#donation-amount').text(`₹${donations.toFixed(2)}`);
+                        $('#total-donations-count').text(totalDonationsCount); // Update total donations count
+                        calculateRemaining(); // Calculate remaining amount after fetching donations
+                    } else {
+                        $('#donation-amount').text('Error fetching data');
+                        console.error(response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    $('#donation-amount').text('Unable to load data');
+                    console.error(`AJAX Error: ${status}, ${error}`);
+                }
+            });
+
+            // Fetch Expenses
+            $.ajax({
+                url: 'fetch_expenses.php', // Backend script for expenses
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        expenses = parseFloat(response.total_expenses || 0);
+                        $('#expenses-amount').text(`₹${expenses.toFixed(2)}`);
+                        calculateRemaining(); // Calculate remaining amount after fetching expenses
+                    } else {
+                        $('#expenses-amount').text('Error fetching data');
+                        console.error(response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    $('#expenses-amount').text('Unable to load data');
+                    console.error(`AJAX Error: ${status}, ${error}`);
+                }
+            });
+
+            // Function to Calculate and Display Remaining Amount
+            function calculateRemaining() {
+                const remaining = donations - expenses;
+                $('#remaining-amount').text(`₹${remaining.toFixed(2)}`);
+            }
+        });
+
         document.querySelectorAll('.has-submenu').forEach(item => {
             item.addEventListener('click', () => {
                 const submenu = item.querySelector('.submenu');

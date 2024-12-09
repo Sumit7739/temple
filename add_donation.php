@@ -45,58 +45,6 @@ $conn->close();
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="style_main.css">
     <link rel="stylesheet" href="adddonate.css">
-    <style>
-        .containerr{
-            overflow: auto;
-        }
-        .donation-container {
-            justify-content: center;
-            gap: 20px;
-            padding: 20px;
-            overflow: auto;
-        }
-
-        .donation-card {
-            background: #fff;
-            border-radius: 18px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin: 10px;
-            /* transition: transform 0.2s; */
-        }
-
-        .card-header {
-            font-size: 18px;
-            font-weight: bold;
-            color: #fff;
-            margin-bottom: 10px;
-        }
-
-        .card-detail {
-            font-size: 18px;
-            color: #555;
-            margin-bottom: 8px;
-        }
-
-        .card-detail span {
-            font-weight: bold;
-            color: #333;
-        }
-
-        .card-remarks {
-            font-style: italic;
-            color: #777;
-            margin-top: 10px;
-            border-top: 1px solid #eee;
-            padding-top: 10px;
-        }
-
-        .imp {
-            color: red;
-            /* font-weight: bold; */
-            font-size: 24px;
-        }
-    </style>
 </head>
 
 <body>
