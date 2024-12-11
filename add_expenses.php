@@ -44,7 +44,7 @@ $conn->close();
     <link rel="stylesheet" href="style_main.css">
     <link rel="stylesheet" href="addexpense.css">
     <style>
-        .wrapper{
+        .wrapperr{
             margin-bottom: 20px;
         }
     </style>
@@ -135,7 +135,7 @@ $conn->close();
         </div>
     </div>
     <div class="containerr">
-        <div class="wrapper">
+        <div class="wrapperr">
             <div id="donation-section">
                 <div class="donation-container">
                     <h2>Total Donations</h2>

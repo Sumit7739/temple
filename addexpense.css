@@ -97,7 +97,7 @@
  }
 
  /* Wrapper container remains unchanged */
- .wrapper {
+ .wrapperr {
      display: flex;
      justify-content: space-around;
      align-items: flex-start;

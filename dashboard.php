@@ -48,7 +48,7 @@ $conn->close();
             height: 95vh;
         }
 
-        .wrapper {
+        .wrapperr {
             display: flex;
             justify-content: space-around;
             align-items: flex-start;
@@ -235,7 +235,7 @@ $conn->close();
         </div>
     </div>
     <div class="containerr">
-        <div class="wrapper">
+        <div class="wrapperr">
             <div class="donation-section">
                 <div class="total-container">
                     <h2>No of Donations</h2>
