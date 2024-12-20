@@ -168,9 +168,9 @@
                 include("config.php");
                 $total_credit = 0;
                 $total_debit = 0;
-                $running_balance = 0; 
-                
-                
+                $running_balance = 0;
+
+
                 $sql = "
         SELECT 
             donation_date AS date, 
@@ -196,10 +196,10 @@
                         $credit = $row['credit'] ?? 0;
                         $debit = $row['debit'] ?? 0;
 
-                        
+
                         $running_balance += $credit - $debit;
 
-                        
+
                         $total_credit += $credit;
                         $total_debit += $debit;
 
@@ -215,7 +215,9 @@
                         echo "<td>" . htmlspecialchars($row['category']) . "</td>";
                         echo "<td class='credit'>" . ($credit ? number_format($credit, 2) : '—') . "</td>";
                         echo "<td class='debit'>" . ($debit ? number_format($debit, 2) : '—') . "</td>";
-                        echo "<td class='balance'>" . number_format($running_balance, 2) . "</td>";
+                        $balanceClass = $running_balance < 0 ? 'balance negative' : 'balance';
+                        echo "<td class='$balanceClass'>" . number_format($running_balance, 2) . "</td>";
+                        // echo "<td class='balance'>" . number_format($running_balance, 2) . "</td>";
                         echo "</tr>";
                     }
                 } else {
@@ -243,13 +245,13 @@
     </div>
 
     <script>
-        
+
         document.addEventListener("DOMContentLoaded", function () {
             const currentMonth = new Date().getMonth() + 1;
             document.getElementById("monthDropdown").value = currentMonth.toString().padStart(2, '0');
         });
 
-        
+
         document.getElementById("monthDropdown").addEventListener("change", function () {
             const selectedMonth = this.value;
             const rows = document.querySelectorAll("#tableBody tr");
@@ -264,7 +266,7 @@
             });
         });
 
-        
+
         let ascending = true;
         document.getElementById("sortButton").addEventListener("click", function () {
             const table = document.getElementById("ledgerTable");
