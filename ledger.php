@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Temple Ledger</title>
     <style>
-        /* General styling */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -74,7 +73,6 @@
             background-color: #f2f2f2;
         }
 
-        /* Styling for specific table data */
         .credit {
             color: green;
             font-weight: bold;
@@ -90,12 +88,37 @@
             font-weight: bold;
         }
 
+        td.balance,
+        th:nth-child(6) {
+            font-weight: bold;
+            color: #6c757d;
+            background-color: #f9f9fb;
+        }
+
+        th:nth-child(6) {
+            background-color: #0056b3;
+            color: white;
+        }
+
+        td.balance:hover {
+            background-color: #e8f7ff;
+            transition: background-color 0.3s ease;
+        }
+
+        td.balance {
+            font-size: 1.1em;
+        }
+
+        td.balance.negative {
+            color: red;
+        }
+
+
         tfoot {
             font-weight: bold;
             background-color: #e2e6ea;
         }
 
-        /* Responsive Table */
         @media (max-width: 768px) {
             table {
                 display: block;
@@ -110,9 +133,7 @@
     <div class="container">
         <h1>Temple Donation and Expense Ledger</h1>
 
-        <!-- Controls: Dropdown and Sort Button -->
         <div class="controls">
-            <!-- Month Dropdown -->
             <select id="monthDropdown">
                 <option value="01">January</option>
                 <option value="02">February</option>
@@ -128,11 +149,9 @@
                 <option value="12">December</option>
             </select>
 
-            <!-- Sort Button -->
             <button id="sortButton">Sort Ascending</button>
         </div>
 
-        <!-- Ledger Table -->
         <table id="ledgerTable">
             <thead>
                 <tr>
@@ -141,6 +160,7 @@
                     <th>Category</th>
                     <th>Credit (₹)</th>
                     <th>Debit (₹)</th>
+                    <th>Balance (₹)</th>
                 </tr>
             </thead>
             <tbody id="tableBody">
@@ -148,26 +168,27 @@
                 include("config.php");
                 $total_credit = 0;
                 $total_debit = 0;
-
-                // Query to fetch donations and expenses
+                $running_balance = 0; 
+                
+                
                 $sql = "
-                    SELECT 
-                        donation_date AS date, 
-                        donor_name AS details, 
-                        donation_amount AS credit, 
-                        NULL AS debit, 
-                        'Donation' AS category
-                    FROM donations
-                    UNION
-                    SELECT 
-                        expense_date AS date, 
-                        description AS details, 
-                        NULL AS credit, 
-                        amount AS debit, 
-                        category
-                    FROM expenses
-                    ORDER BY date ASC
-                ";
+        SELECT 
+            donation_date AS date, 
+            donor_name AS details, 
+            donation_amount AS credit, 
+            NULL AS debit, 
+            'Donation' AS category
+        FROM donations
+        UNION
+        SELECT 
+            expense_date AS date, 
+            description AS details, 
+            NULL AS credit, 
+            amount AS debit, 
+            category
+        FROM expenses
+        ORDER BY date ASC
+    ";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
@@ -175,7 +196,10 @@
                         $credit = $row['credit'] ?? 0;
                         $debit = $row['debit'] ?? 0;
 
-                        // Accumulate total credit and debit
+                        
+                        $running_balance += $credit - $debit;
+
+                        
                         $total_credit += $credit;
                         $total_debit += $debit;
 
@@ -191,10 +215,11 @@
                         echo "<td>" . htmlspecialchars($row['category']) . "</td>";
                         echo "<td class='credit'>" . ($credit ? number_format($credit, 2) : '—') . "</td>";
                         echo "<td class='debit'>" . ($debit ? number_format($debit, 2) : '—') . "</td>";
+                        echo "<td class='balance'>" . number_format($running_balance, 2) . "</td>";
                         echo "</tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='5'>No records found</td></tr>";
+                    echo "<tr><td colspan='6'>No records found</td></tr>";
                 }
 
                 $final_balance = $total_credit - $total_debit;
@@ -206,23 +231,25 @@
                     <td colspan="3">Total</td>
                     <td id="totalCredit"><?= number_format($total_credit, 2) ?></td>
                     <td id="totalDebit"><?= number_format($total_debit, 2) ?></td>
-                </tr>
-                <tr>
-                    <td colspan="4">Final Balance (₹)</td>
                     <td id="finalBalance"><?= number_format($final_balance, 2) ?></td>
                 </tr>
+                <tr>
+                    <td colspan="5">Final Balance (₹)</td>
+                    <td><?= number_format($final_balance, 2) ?></td>
+                </tr>
             </tfoot>
+
         </table>
     </div>
 
     <script>
-        // Set the current month as selected in dropdown
+        
         document.addEventListener("DOMContentLoaded", function () {
             const currentMonth = new Date().getMonth() + 1;
             document.getElementById("monthDropdown").value = currentMonth.toString().padStart(2, '0');
         });
 
-        // Filter table rows based on selected month
+        
         document.getElementById("monthDropdown").addEventListener("change", function () {
             const selectedMonth = this.value;
             const rows = document.querySelectorAll("#tableBody tr");
@@ -237,7 +264,7 @@
             });
         });
 
-        // Sort button functionality
+        
         let ascending = true;
         document.getElementById("sortButton").addEventListener("click", function () {
             const table = document.getElementById("ledgerTable");
