@@ -157,11 +157,14 @@ $conn->close();
     <div class="sidebar">
         <div class="wrapper">
             <ul>
-                <li>
+                <li class="has-submenu">
                     <span class="icon material-icons active">home</span>
-                    <span class="text active">Home</span>
+                    <span class="text active">Dashboard</span>
+                    <div class="submenu">
+                        <a href="dashboard.php">Home</a>
+                        <a href="ledger.php">Ledger</a>
+                    </div>
                 </li>
-
 
                 <li class="has-submenu">
                     <span class="icon material-icons">volunteer_activism</span>
